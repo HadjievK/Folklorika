@@ -33,15 +33,20 @@ export default function VideoBackground() {
 
     // Зареди и пусни новото видео
     video.load();
-    video.play().catch((error) => {
-      console.error('Video playback failed:', error);
-    });
+    const playPromise = video.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.error('Video playback failed:', error);
+      });
+    }
   }, [currentVideoIndex]);
 
   return (
     <div className="absolute inset-0 w-full h-full">
       <video
         ref={videoRef}
+        autoPlay
         muted
         playsInline
         className="w-full h-full object-cover"
