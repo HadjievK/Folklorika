@@ -58,7 +58,9 @@ export async function POST(request: Request) {
     });
 
     // Изпращане на verification email
-    const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify?token=${verificationToken}`;
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const verificationUrl = `${protocol}://${host}/api/auth/verify?token=${verificationToken}`;
     
     try {
       await sendVerificationEmail({

@@ -49,7 +49,9 @@ export async function POST(request: Request) {
     });
 
     // Изпрати email
-    const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`;
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const resetUrl = `${protocol}://${host}/auth/reset-password?token=${resetToken}`;
 
     try {
       await sendPasswordResetEmail({
