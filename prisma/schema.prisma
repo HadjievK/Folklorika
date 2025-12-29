@@ -31,6 +31,7 @@ model Association {
   slug        String   @unique
   city        String
   region      String?
+  address     String?
   description String?  @db.Text
   logo        String?
   email       String?
