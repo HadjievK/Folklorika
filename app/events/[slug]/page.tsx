@@ -13,7 +13,7 @@ async function getEvent(slug: string) {
           name: true,
           slug: true,
           city: true,
-          contactEmail: true,
+          email: true,
           phone: true,
         },
       },
@@ -121,12 +121,12 @@ export default async function EventDetailPage({
               </Link>
             </div>
 
-            {event.association.contactEmail && (
+            {event.association.email && (
               <div className="bg-gray-50 rounded-lg p-6">
                 <h2 className="text-xl font-bold mb-3">Контакт за повече информация</h2>
                 <p className="text-gray-700">
-                  📧 <a href={`mailto:${event.association.contactEmail}`} className="text-red-600 hover:underline">
-                    {event.association.contactEmail}
+                  📧 <a href={`mailto:${event.association.email}`} className="text-red-600 hover:underline">
+                    {event.association.email}
                   </a>
                 </p>
                 {event.association.phone && (
