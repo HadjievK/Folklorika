@@ -9,7 +9,7 @@ interface EventCardProps {
     date: Date;
     city: string;
     slug: string;
-    type: 'CONCERT' | 'FESTIVAL' | 'WORKSHOP' | 'OTHER';
+    type: 'FESTIVAL' | 'CONCERT' | 'WORKSHOP' | 'SEMINAR' | 'EXHIBITION' | 'COMPETITION' | 'CELEBRATION' | 'OTHER';
     association?: {
       name: string;
       slug: string;
@@ -18,9 +18,13 @@ interface EventCardProps {
 }
 
 const eventIcons = {
-  CONCERT: '🎤',
   FESTIVAL: '🎉',
+  CONCERT: '🎤',
   WORKSHOP: '🎨',
+  SEMINAR: '📚',
+  EXHIBITION: '🖼️',
+  COMPETITION: '🏆',
+  CELEBRATION: '🎊',
   OTHER: '🎭',
 };
 
