@@ -43,11 +43,12 @@ export default function AdminAssociationsPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/auth/signin');
+      router.push('/auth/signin?callbackUrl=/admin/associations');
       return;
     }
 
-    if (session?.user?.role !== 'ADMIN') {
+    // Само zhaltushaipriyateli@gmail.com има достъп
+    if (session?.user?.email !== 'zhaltushaipriyateli@gmail.com') {
       router.push('/dashboard');
       return;
     }
@@ -123,7 +124,7 @@ export default function AdminAssociationsPage() {
     );
   }
 
-  if (!session || session.user.role !== 'ADMIN') {
+  if (!session || session.user.email !== 'zhaltushaipriyateli@gmail.com') {
     return null;
   }
 

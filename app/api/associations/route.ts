@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { sendAssociationApprovalRequest } from '@/lib/email';
 
 export async function GET() {
   try {
@@ -86,6 +87,16 @@ export async function POST(request: Request) {
     });
 
     console.log('Association created:', association);
+
+    // Изпращане на имейл до Жълтуша за одобрение
+    await sendAssociationApprovalRequest({
+      associationName: association.name,
+      city: association.city,
+      email: association.email || 'N/A',
+      userName: session.user.name || 'Неизвестен',
+      userEmail: session.user.email || 'N/A',
+    });
+
     return NextResponse.json(association, { status: 201 });
   } catch (error: any) {
     console.error('Error creating association:', error);

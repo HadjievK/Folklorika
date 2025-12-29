@@ -50,11 +50,12 @@ export default function AdminEventsPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/auth/signin');
+      router.push('/auth/signin?callbackUrl=/admin/events');
       return;
     }
 
-    if (session?.user?.role !== 'ADMIN') {
+    // Само zhaltushaipriyateli@gmail.com има достъп
+    if (session?.user?.email !== 'zhaltushaipriyateli@gmail.com') {
       router.push('/dashboard');
       return;
     }
@@ -130,7 +131,7 @@ export default function AdminEventsPage() {
     );
   }
 
-  if (!session || session.user.role !== 'ADMIN') {
+  if (!session || session.user.email !== 'zhaltushaipriyateli@gmail.com') {
     return null;
   }
 
