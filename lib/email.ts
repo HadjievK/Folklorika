@@ -27,6 +27,64 @@ interface EventNotification {
   associationName?: string;
 }
 
+interface VerificationEmail {
+  name: string;
+  email: string;
+  verificationUrl: string;
+}
+
+export async function sendVerificationEmail(data: VerificationEmail) {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: data.email,
+    subject: '✅ Потвърдете вашия email - Фолклорика',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #c53030;">Добре дошли във Фолклорика!</h2>
+        
+        <p>Здравейте${data.name ? ` ${data.name}` : ''},</p>
+        
+        <p>Благодарим ви, че се регистрирахте в нашата платформа за български фолклор!</p>
+        
+        <p>За да завършите регистрацията си, моля потвърдете вашия email адрес като кликнете бутона по-долу:</p>
+
+        <div style="margin: 30px 0; text-align: center;">
+          <a href="${data.verificationUrl}" 
+             style="background: #c53030; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+            Потвърди Email
+          </a>
+        </div>
+
+        <p style="color: #718096; font-size: 14px;">
+          Ако бутонът не работи, копирайте и поставете следния линк във вашия браузър:
+        </p>
+        <p style="color: #4299e1; font-size: 14px; word-break: break-all;">
+          ${data.verificationUrl}
+        </p>
+
+        <p style="color: #e53e3e; font-size: 14px; margin-top: 30px;">
+          ⚠️ Ако не сте се регистрирали във Фолклорика, моля игнорирайте този email.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;">
+
+        <p style="color: #718096; font-size: 14px; text-align: center;">
+          Фолклорика - Национална платформа за български фолклор<br>
+          🎭 Съхранявайки традициите, градим бъдещето
+        </p>
+      </div>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`✅ Verification email sent successfully to ${data.email}`);
+  } catch (error) {
+    console.error('❌ Error sending verification email:', error);
+    throw new Error('Грешка при изпращане на потвърдителен email');
+  }
+}
+
 export async function sendAssociationApprovalRequest(data: AssociationNotification) {
   const mailOptions = {
     from: process.env.EMAIL_USER,

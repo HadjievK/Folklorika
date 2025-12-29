@@ -36,6 +36,11 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        // Проверка дали email-ът е верифициран
+        if (!user.emailVerified) {
+          throw new Error('Email не е потвърден. Моля проверете вашата електронна поща.');
+        }
+
         const isValid = await bcrypt.compare(credentials.password, user.password);
 
         if (!isValid) {

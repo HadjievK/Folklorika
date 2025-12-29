@@ -1,21 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { BackLink } from '@/app/components/layout/BackLink';
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Проверка за verification статус
+    const verified = searchParams.get('verified');
+    const errorParam = searchParams.get('error');
+
+    if (verified === 'success') {
+      setSuccess('✅ Email-ът ви е потвърден успешно! Можете да влезете в акаунта си.');
+    } else if (verified === 'already') {
+      setSuccess('Email-ът ви вече е потвърден. Можете да влезете.');
+    } else if (errorParam === 'invalid-token') {
+      setError('Невалиден или изтекъл токен за потвърждение.');
+    } else if (errorParam === 'verification-failed') {
+      setError('Грешка при потвърждение на email. Моля опитайте отново.');
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -26,7 +45,12 @@ export default function SignInPage() {
       });
 
       if (result?.error) {
-        setError('Невалиден email или парола');
+        // Проверка дали грешката е за неверифициран email
+        if (result.error.includes('потвърден')) {
+          setError('Email не е потвърден. Моля проверете вашата електронна поща за линк за потвърждение.');
+        } else {
+          setError('Невалиден email или парола');
+        }
       } else {
         router.push('/dashboard');
         router.refresh();
@@ -121,6 +145,12 @@ export default function SignInPage() {
 
           {/* Email/Password Form */}
           <form className="space-y-4" onSubmit={handleSubmit}>
+            {success && (
+              <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-sm">
+                {success}
+              </div>
+            )}
+            
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
                 {error}

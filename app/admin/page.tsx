@@ -11,6 +11,9 @@ export default function AdminPage() {
   const [stats, setStats] = useState({
     pendingAssociations: 0,
     pendingEvents: 0,
+    totalUsers: 0,
+    totalAssociations: 0,
+    totalEvents: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -32,18 +35,27 @@ export default function AdminPage() {
 
   const fetchStats = async () => {
     try {
-      const [associationsRes, eventsRes] = await Promise.all([
+      const [associationsRes, eventsRes, usersRes, allAssociationsRes, allEventsRes] = await Promise.all([
         fetch('/api/admin/associations'),
         fetch('/api/admin/events'),
+        fetch('/api/admin/users'),
+        fetch('/api/associations'),
+        fetch('/api/events'),
       ]);
 
-      if (associationsRes.ok && eventsRes.ok) {
+      if (associationsRes.ok && eventsRes.ok && usersRes.ok && allAssociationsRes.ok && allEventsRes.ok) {
         const associations = await associationsRes.json();
         const events = await eventsRes.json();
+        const users = await usersRes.json();
+        const allAssociations = await allAssociationsRes.json();
+        const allEvents = await allEventsRes.json();
 
         setStats({
           pendingAssociations: associations.length,
           pendingEvents: events.length,
+          totalUsers: users.length,
+          totalAssociations: allAssociations.length,
+          totalEvents: allEvents.length,
         });
       }
     } catch (error) {
@@ -97,18 +109,47 @@ export default function AdminPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">Сдружения за одобрение</p>
+                <p className="text-gray-600 text-sm font-medium">Общо потребители</p>
                 <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {stats.pendingAssociations}
+                  {stats.totalUsers}
                 </p>
               </div>
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-red-600"
+                  className="w-8 h-8 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm font-medium">Общо сдружения</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">
+                  {stats.totalAssociations}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {stats.pendingAssociations} за одобрение
+                </p>
+              </div>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-8 h-8 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -127,14 +168,17 @@ export default function AdminPage() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">Събития за одобрение</p>
+                <p className="text-gray-600 text-sm font-medium">Общо събития</p>
                 <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {stats.pendingEvents}
+                  {stats.totalEvents}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {stats.pendingEvents} за одобрение
                 </p>
               </div>
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-red-600"
+                  className="w-8 h-8 text-purple-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -152,18 +196,46 @@ export default function AdminPage() {
         </div>
 
         {/* Action Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
+          <Link
+            href="/admin/users"
+            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+          >
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+              Потребители
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Преглед на всички регистрирани потребители
+            </p>
+            <div className="flex items-center text-blue-600 font-medium">
+              Отвори
+              <svg
+                className="w-5 h-5 ml-2 group-hover:translate-x-2 transition"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          </Link>
+
           <Link
             href="/admin/associations"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition">
-              Управление на сдружения
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition">
+              Сдружения
             </h3>
             <p className="text-gray-600 mb-4">
               Преглед и одобряване на регистрирани фолклорни сдружения
             </p>
-            <div className="flex items-center text-red-600 font-medium">
+            <div className="flex items-center text-green-600 font-medium">
               Отвори
               <svg
                 className="w-5 h-5 ml-2 group-hover:translate-x-2 transition"
@@ -185,13 +257,13 @@ export default function AdminPage() {
             href="/admin/events"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition">
-              Управление на събития
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">
+              События
             </h3>
             <p className="text-gray-600 mb-4">
               Преглед и одобряване на публикувани фолклорни събития
             </p>
-            <div className="flex items-center text-red-600 font-medium">
+            <div className="flex items-center text-purple-600 font-medium">
               Отвори
               <svg
                 className="w-5 h-5 ml-2 group-hover:translate-x-2 transition"

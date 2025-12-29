@@ -14,6 +14,7 @@ export default function RegisterPage() {
     confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +27,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
 
     // Валидация
     if (formData.password !== formData.confirmPassword) {
@@ -59,8 +61,16 @@ export default function RegisterPage() {
         throw new Error(data.error || 'Грешка при регистрация');
       }
 
-      // Успешна регистрация - пренасочване към login
-      router.push('/auth/signin?registered=true');
+      // Успешна регистрация - покажи съобщение
+      setSuccess('✅ Регистрацията е успешна! Моля проверете вашия email за линк за потвърждение.');
+      
+      // Изчисти формата
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
     } catch (err: any) {
       setError(err.message || 'Грешка при регистрация');
     } finally {
@@ -95,6 +105,19 @@ export default function RegisterPage() {
 
         <div className="bg-white py-8 px-6 shadow-lg rounded-lg">
           <form className="space-y-4" onSubmit={handleSubmit}>
+            {success && (
+              <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-sm">
+                {success}
+                <p className="mt-2 text-xs">
+                  След потвърждение можете да се{' '}
+                  <Link href="/auth/signin" className="font-medium underline">
+                    влезете тук
+                  </Link>
+                  .
+                </p>
+              </div>
+            )}
+            
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
                 {error}

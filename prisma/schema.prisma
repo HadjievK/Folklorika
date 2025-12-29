@@ -9,20 +9,23 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String   @unique
-  password  String?
-  image     String?
-  role      Role     @default(USER)
-  provider  String?  @default("credentials")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String    @unique
+  password           String?
+  image              String?
+  role               Role      @default(USER)
+  provider           String?   @default("credentials")
+  emailVerified      Boolean   @default(false)
+  verificationToken  String?   @unique
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   associations AssociationMember[]
   createdEvents Event[] @relation("EventCreator")
   
   @@index([email])
+  @@index([verificationToken])
 }
 
 model Association {

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcrypt';
+import { sendVerificationEmail } from '@/lib/email';
+import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
@@ -36,6 +38,9 @@ export async function POST(request: Request) {
     // Хеширане на паролата
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Генериране на verification token
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+
     // Създаване на потребител
     const user = await prisma.user.create({
       data: {
@@ -43,6 +48,8 @@ export async function POST(request: Request) {
         email,
         password: hashedPassword,
         role: 'USER',
+        emailVerified: false,
+        verificationToken,
       },
       select: {
         id: true,
@@ -52,8 +59,29 @@ export async function POST(request: Request) {
       },
     });
 
+    // Изпращане на verification email
+    const verificationUrl = `${process.env.NEXTAUTH_URL}/auth/verify?token=${verificationToken}`;
+    
+    try {
+      await sendVerificationEmail({
+        name: user.name || '',
+        email: user.email,
+        verificationUrl,
+      });
+    } catch (emailError) {
+      // Ако email-ът не може да се изпрати, изтриваме потребителя
+      await prisma.user.delete({ where: { id: user.id } });
+      return NextResponse.json(
+        { error: 'Грешка при изпращане на потвърдителен email. Моля опитайте отново.' },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { message: 'Успешна регистрация', user },
+      { 
+        message: 'Успешна регистрация! Моля проверете вашия email за потвърждение.',
+        user 
+      },
       { status: 201 }
     );
   } catch (error) {
