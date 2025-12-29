@@ -39,11 +39,7 @@ async function getAllUsers() {
 }
 
 export default async function AdminUsersPage() {
-  const isAdmin = await requireAdmin();
-
-  if (!isAdmin) {
-    redirect('/dashboard');
-  }
+  await requireAdmin();
 
   const users = await getAllUsers();
 
