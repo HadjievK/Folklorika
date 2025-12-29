@@ -43,9 +43,6 @@ export default function DashboardPage() {
               <h1 className="text-2xl font-bold text-gray-900">
                 Добре дошъл, {session.user.name || session.user.email}!
               </h1>
-              <p className="text-sm text-gray-600 mt-1">
-                Роля: {session.user.role === 'ADMIN' ? 'Администратор' : 'Потребител'}
-              </p>
             </div>
             <Link href="/" className="text-red-600 hover:text-red-700">
               ← Към началото
