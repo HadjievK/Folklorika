@@ -54,7 +54,7 @@ export default async function Home() {
           <div className="md:hidden">
             <div className="text-center mb-4">
               <Link href="/">
-                <h1 className="text-3xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg" style={{ fontFamily: "'Ink Free', cursive" }}>
+                <h1 className="text-3xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg font-[var(--font-shadows)]">
                   Фолклорика
                 </h1>
               </Link>
@@ -104,7 +104,7 @@ export default async function Home() {
             {/* Centered Logo */}
             <div className="text-center">
               <Link href="/">
-                <h1 className="text-5xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg" style={{ fontFamily: "'Ink Free', cursive" }}>
+                <h1 className="text-5xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg font-[var(--font-shadows)]">
                   Фолклорика
                 </h1>
               </Link>
