@@ -1,0 +1,125 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String?
+  image     String?
+  role      Role     @default(USER)
+  provider  String?  @default("credentials")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  associations AssociationMember[]
+  createdEvents Event[] @relation("EventCreator")
+  
+  @@index([email])
+}
+
+model Association {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  city        String
+  region      String?
+  description String?  @db.Text
+  logo        String?
+  email       String?
+  phone       String?
+  website     String?
+  facebook    String?
+  instagram   String?
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     AssociationMember[]
+  events      Event[]
+
+  @@index([slug])
+  @@index([city])
+  @@index([approved])
+}
+
+model AssociationMember {
+  id            String      @id @default(cuid())
+  userId        String
+  associationId String
+  role          MemberRole  @default(MEMBER)
+  joinedAt      DateTime    @default(now())
+
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  association  Association @relation(fields: [associationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, associationId])
+  @@index([userId])
+  @@index([associationId])
+}
+
+model Event {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  type          EventType
+  description   String    @db.Text
+  date          DateTime
+  endDate       DateTime?
+  city          String
+  region        String?
+  venue         String?
+  address       String?
+  coverImage    String?
+  isFree        Boolean   @default(true)
+  ticketPrice   Float?
+  ticketUrl     String?
+  contactEmail  String?
+  contactPhone  String?
+  associationId String
+  creatorId     String
+  approved      Boolean   @default(false)
+  featured      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  association   Association @relation(fields: [associationId], references: [id], onDelete: Cascade)
+  creator       User        @relation("EventCreator", fields: [creatorId], references: [id])
+
+  @@index([slug])
+  @@index([type])
+  @@index([city])
+  @@index([date])
+  @@index([approved])
+  @@index([associationId])
+}
+
+enum Role {
+  USER
+  ASSOCIATION_ADMIN
+  ADMIN
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum EventType {
+  FESTIVAL
+  CONCERT
+  WORKSHOP
+  SEMINAR
+  EXHIBITION
+  COMPETITION
+  CELEBRATION
+  OTHER
+}
