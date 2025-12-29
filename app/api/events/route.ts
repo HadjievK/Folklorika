@@ -63,7 +63,6 @@ export async function POST(request: Request) {
         description: body.description || null,
         date: new Date(body.date),
         endDate: body.endDate ? new Date(body.endDate) : null,
-        time: body.time || null,
         city: body.city,
         region: body.region || null,
         venue: body.venue || null,
