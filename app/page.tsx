@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { format } from 'date-fns';
 import { bg } from 'date-fns/locale';
+import VideoBackground from './components/VideoBackground';
 
 async function getUpcomingEvents() {
   return await prisma.event.findMany({
@@ -131,20 +132,7 @@ export default async function Home() {
       {/* Hero Section with Video Background */}
       <section className="relative h-screen overflow-hidden">
         {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/videos/rozhen-sabor.mp4" type="video/mp4" />
-            {/* Fallback background */}
-          </video>
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
+        <VideoBackground />
 
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
