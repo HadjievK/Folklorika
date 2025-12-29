@@ -28,16 +28,24 @@ async function getEvent(slug: string) {
 }
 
 const eventIcons = {
-  CONCERT: '🎤',
   FESTIVAL: '🎉',
+  CONCERT: '🎤',
   WORKSHOP: '🎨',
+  SEMINAR: '📚',
+  EXHIBITION: '🖼️',
+  COMPETITION: '🏆',
+  CELEBRATION: '🎊',
   OTHER: '🎭',
 };
 
 const eventTypes = {
-  CONCERT: 'Концерт',
   FESTIVAL: 'Фестивал',
+  CONCERT: 'Концерт',
   WORKSHOP: 'Работилница',
+  SEMINAR: 'Семинар',
+  EXHIBITION: 'Изложба',
+  COMPETITION: 'Конкурс',
+  CELEBRATION: 'Празник',
   OTHER: 'Друго',
 };
 
