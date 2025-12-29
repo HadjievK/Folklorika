@@ -16,6 +16,8 @@ export default function AdminPage() {
     totalEvents: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [sendingGreetings, setSendingGreetings] = useState(false);
+  const [greetingsResult, setGreetingsResult] = useState<any>(null);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -65,6 +67,35 @@ export default function AdminPage() {
     }
   };
 
+  const sendNewYearGreetings = async () => {
+    if (!confirm('Сигурни ли сте че искате да изпратите новогодишни поздравления на всички потребители?')) {
+      return;
+    }
+
+    setSendingGreetings(true);
+    setGreetingsResult(null);
+
+    try {
+      const response = await fetch('/api/admin/send-greetings', {
+        method: 'POST',
+      });
+
+      const data = await response.json();
+      setGreetingsResult(data);
+
+      if (response.ok) {
+        alert(`Успешно изпратени ${data.sent} от ${data.total} мейла!`);
+      } else {
+        alert('Грешка при изпращане на поздравления');
+      }
+    } catch (error) {
+      console.error('Error sending greetings:', error);
+      alert('Грешка при изпращане на поздравления');
+    } finally {
+      setSendingGreetings(false);
+    }
+  };
+
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -99,14 +130,48 @@ export default function AdminPage() {
 
       {/* Content */}
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Добре дошли, {session.user.name}
-          </h2>
-          <p className="text-gray-600">
-            Управлявайте сдружения и събития, които чакат одобрение.
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Добре дошли, {session.user.name}
+            </h2>
+            <p className="text-gray-600">
+              Управлявайте сдружения и събития, които чакат одобрение.
+            </p>
+          </div>
+          
+          {/* New Year Greetings Button */}
+          <button
+            onClick={sendNewYearGreetings}
+            disabled={sendingGreetings}
+            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg"
+          >
+            {sendingGreetings ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                Изпращане...
+              </>
+            ) : (
+              <>
+                🎉 Изпрати новогодишни поздравления
+              </>
+            )}
+          </button>
         </div>
+
+        {/* Greetings Result */}
+        {greetingsResult && (
+          <div className={`mb-6 p-4 rounded-lg ${greetingsResult.failed === 0 ? 'bg-green-50 border border-green-200' : 'bg-yellow-50 border border-yellow-200'}`}>
+            <p className="font-semibold">
+              ✅ Изпратени: {greetingsResult.sent} / {greetingsResult.total}
+            </p>
+            {greetingsResult.failed > 0 && (
+              <p className="text-sm text-yellow-700 mt-1">
+                ⚠️ Неуспешни: {greetingsResult.failed}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
