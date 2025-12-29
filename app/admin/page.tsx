@@ -16,11 +16,13 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/auth/signin');
+      // Ако не е logged in, препращаме към login с callbackUrl към admin
+      router.push('/auth/signin?callbackUrl=/admin');
       return;
     }
 
-    if (session?.user?.role !== 'ADMIN') {
+    // Само zhaltushaipriyateli@gmail.com има достъп
+    if (session?.user?.email !== 'zhaltushaipriyateli@gmail.com') {
       router.push('/dashboard');
       return;
     }
@@ -59,7 +61,7 @@ export default function AdminPage() {
     );
   }
 
-  if (!session || session.user.role !== 'ADMIN') {
+  if (!session || session.user.email !== 'zhaltushaipriyateli@gmail.com') {
     return null;
   }
 
