@@ -44,62 +44,105 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-red-700 text-white">
+      {/* Transparent Header with absolute positioning */}
+      <header className="absolute top-0 left-0 right-0 z-20">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-between items-center">
+          {/* Left Navigation */}
+          <div className="absolute top-6 left-8 flex gap-8 text-white">
+            <Link href="/" className="hover:opacity-80 transition text-lg font-medium drop-shadow-lg">
+              Начало
+            </Link>
+            <Link href="/events" className="hover:opacity-80 transition text-lg font-medium drop-shadow-lg">
+              Събития
+            </Link>
+            <Link href="/associations" className="hover:opacity-80 transition text-lg font-medium drop-shadow-lg">
+              Сдружения
+            </Link>
+          </div>
+
+          {/* Centered Logo */}
+          <div className="text-center">
             <Link href="/">
-              <h1 className="text-3xl font-bold cursor-pointer hover:opacity-90 transition">
-                🇧🇬 Фолклорика
+              <h1 className="text-5xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg">
+                Фолклорика
               </h1>
             </Link>
-            <nav className="flex items-center gap-6">
-              <Link href="/events" className="hover:underline">
-                Събития
-              </Link>
-              <Link href="/associations" className="hover:underline">
-                Сдружения
-              </Link>
-              <Link
-                href="/auth/signin"
-                className="bg-white text-red-700 px-4 py-2 rounded-lg font-semibold hover:bg-red-50 transition"
-              >
-                Вход
-              </Link>
-              <Link
-                href="/auth/register"
-                className="bg-red-800 px-4 py-2 rounded-lg font-semibold hover:bg-red-900 transition"
-              >
-                Регистрация
-              </Link>
-            </nav>
+          </div>
+
+          {/* Right Auth Buttons */}
+          <div className="absolute top-6 right-8 flex items-center gap-4">
+            <Link
+              href="/auth/signin"
+              className="bg-white bg-opacity-90 text-red-700 px-6 py-2 rounded-lg font-semibold hover:bg-opacity-100 transition shadow-lg"
+            >
+              Вход
+            </Link>
+            <Link
+              href="/auth/register"
+              className="bg-red-700 bg-opacity-90 text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-100 transition shadow-lg"
+            >
+              Регистрация
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-red-50 to-orange-50 py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Национална платформа за<br />български фолклор
-          </h2>
-          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+      {/* Hero Section with Video Background */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/videos/rozhen-sabor.mp4" type="video/mp4" />
+            {/* Fallback background */}
+          </video>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+          <p className="text-3xl mb-8 max-w-3xl drop-shadow-md font-light">
             Открийте фолклорни събития, присъединете се към сдружения и
             популяризирайте българската култура
           </p>
           <div className="flex gap-4 justify-center">
             <Link
-              href="/associations/register"
-              className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+              href="/dashboard/associations/create"
+              className="bg-red-600 bg-opacity-90 text-white px-8 py-4 rounded-lg font-semibold hover:bg-opacity-100 transition text-lg shadow-lg"
             >
               Регистрирай сдружение
             </Link>
             <Link
               href="/events"
-              className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold border-2 border-red-600 hover:bg-red-50 transition"
+              className="bg-white bg-opacity-90 text-red-600 px-8 py-4 rounded-lg font-semibold hover:bg-opacity-100 transition text-lg shadow-lg"
             >
               Разгледай събития
             </Link>
+          </div>
+        </div>
+
+        {/* Scroll down indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="animate-bounce">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
           </div>
         </div>
       </section>
