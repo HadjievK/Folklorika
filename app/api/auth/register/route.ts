@@ -47,7 +47,6 @@ export async function POST(request: Request) {
         name,
         email,
         password: hashedPassword,
-        role: 'USER',
         emailVerified: false,
         verificationToken,
       },
@@ -55,7 +54,6 @@ export async function POST(request: Request) {
         id: true,
         name: true,
         email: true,
-        role: true,
       },
     });
 

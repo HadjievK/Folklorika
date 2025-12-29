@@ -14,10 +14,12 @@ model User {
   email              String    @unique
   password           String?
   image              String?
-  role               Role      @default(USER)
   provider           String?   @default("credentials")
+  role               String    @default("user")
   emailVerified      Boolean   @default(false)
   verificationToken  String?   @unique
+  resetToken         String?   @unique
+  resetTokenExpiry   DateTime?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
@@ -26,6 +28,7 @@ model User {
   
   @@index([email])
   @@index([verificationToken])
+  @@index([resetToken])
 }
 
 model Association {
@@ -103,12 +106,6 @@ model Event {
   @@index([date])
   @@index([approved])
   @@index([associationId])
-}
-
-enum Role {
-  USER
-  ASSOCIATION_ADMIN
-  ADMIN
 }
 
 enum MemberRole {

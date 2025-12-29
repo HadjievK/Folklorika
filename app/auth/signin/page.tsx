@@ -19,11 +19,14 @@ export default function SignInPage() {
     // Проверка за verification статус
     const verified = searchParams.get('verified');
     const errorParam = searchParams.get('error');
+    const reset = searchParams.get('reset');
 
     if (verified === 'success') {
       setSuccess('✅ Email-ът ви е потвърден успешно! Можете да влезете в акаунта си.');
     } else if (verified === 'already') {
       setSuccess('Email-ът ви вече е потвърден. Можете да влезете.');
+    } else if (reset === 'success') {
+      setSuccess('✅ Паролата е променена успешно! Можете да влезете с новата парола.');
     } else if (errorParam === 'invalid-token') {
       setError('Невалиден или изтекъл токен за потвърждение.');
     } else if (errorParam === 'verification-failed') {
@@ -189,6 +192,11 @@ export default function SignInPage() {
                 className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
                 placeholder="••••••••"
               />
+              <div className="text-right mt-1">
+                <Link href="/auth/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
+                  Забравена парола?
+                </Link>
+              </div>
             </div>
 
             <div>
