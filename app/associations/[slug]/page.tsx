@@ -96,12 +96,12 @@ export default async function AssociationDetailPage({
             </div>
           </div>
 
-          {association.contactEmail && (
+          {association.email && (
             <div className="mb-6 pb-6 border-b">
               <h2 className="text-xl font-bold mb-3">Контакт</h2>
               <p className="text-gray-700">
-                📧 <a href={`mailto:${association.contactEmail}`} className="text-red-600 hover:underline">
-                  {association.contactEmail}
+                📧 <a href={`mailto:${association.email}`} className="text-red-600 hover:underline">
+                  {association.email}
                 </a>
               </p>
               {association.phone && (
