@@ -5,6 +5,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from './prisma';
 import bcrypt from 'bcrypt';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -74,3 +76,18 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+// Helper function to check if user is admin
+export async function requireAdmin() {
+  const session = await getServerSession(authOptions);
+  
+  if (!session) {
+    redirect('/auth/signin');
+  }
+
+  if (session.user.email !== 'zhaltushaipriyateli@gmail.com') {
+    throw new Error('Unauthorized: Admin access required');
+  }
+
+  return session;
+}
