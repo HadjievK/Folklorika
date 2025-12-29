@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { BackLink } from '@/app/components/layout/BackLink';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -78,9 +79,7 @@ export default function RegisterPage() {
         backgroundColor: '#fef2f2'
       }}
     >
-      <Link href="/" className="absolute top-6 left-6 text-gray-700 hover:text-red-600 transition">
-        ← Назад
-      </Link>
+      <BackLink />
       <div className="max-w-md w-full space-y-8">
         <div className="bg-white bg-opacity-90 rounded-lg p-6 shadow-md">
           <h2 className="text-center text-3xl font-bold text-gray-900">

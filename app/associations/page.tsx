@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import { AssociationCard } from '@/app/components/cards/AssociationCard';
+import { PageHeader } from '@/app/components/layout/PageHeader';
 
 async function getAssociations() {
   return await prisma.association.findMany({
@@ -26,40 +28,15 @@ export default async function AssociationsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Сдружения</h1>
-          <Link
-            href="/"
-            className="text-red-600 hover:underline"
-          >
+        <PageHeader title="Сдружения">
+          <Link href="/" className="text-red-600 hover:underline">
             ← Начало
           </Link>
-        </div>
+        </PageHeader>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {associations.map((assoc) => (
-            <div
-              key={assoc.id}
-              className="bg-white border rounded-lg p-6 hover:shadow-lg transition"
-            >
-              <div className="text-6xl mb-4 text-center">🎪</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">
-                {assoc.name}
-              </h3>
-              <p className="text-gray-600 text-sm mb-3 text-center">
-                📍 {assoc.city}
-                {assoc.region && ` • ${assoc.region}`}
-              </p>
-              {assoc.description && (
-                <p className="text-gray-700 text-sm mb-4 line-clamp-3">
-                  {assoc.description}
-                </p>
-              )}
-              <div className="flex justify-center gap-4 text-sm text-gray-600 border-t pt-3">
-                <span>👥 {assoc._count.members} члена</span>
-                <span>📅 {assoc._count.events} събития</span>
-              </div>
-            </div>
+            <AssociationCard key={assoc.id} association={assoc} />
           ))}
         </div>
 
