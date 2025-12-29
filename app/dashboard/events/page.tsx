@@ -2,12 +2,12 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { bg } from 'date-fns/locale';
 
-export default function MyEventsPage() {
+function MyEventsContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -150,5 +150,17 @@ export default function MyEventsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MyEventsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">Зареждане...</div>
+      </div>
+    }>
+      <MyEventsContent />
+    </Suspense>
   );
 }
