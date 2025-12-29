@@ -48,16 +48,29 @@ export default async function Home() {
       <header className="bg-red-700 text-white">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold">🇧🇬 Фолклорика</h1>
-            <nav className="space-x-6">
+            <Link href="/">
+              <h1 className="text-3xl font-bold cursor-pointer hover:opacity-90 transition">
+                🇧🇬 Фолклорика
+              </h1>
+            </Link>
+            <nav className="flex items-center gap-6">
               <Link href="/events" className="hover:underline">
                 Събития
               </Link>
               <Link href="/associations" className="hover:underline">
                 Сдружения
               </Link>
-              <Link href="/auth/signin" className="hover:underline">
+              <Link
+                href="/auth/signin"
+                className="bg-white text-red-700 px-4 py-2 rounded-lg font-semibold hover:bg-red-50 transition"
+              >
                 Вход
+              </Link>
+              <Link
+                href="/auth/register"
+                className="bg-red-800 px-4 py-2 rounded-lg font-semibold hover:bg-red-900 transition"
+              >
+                Регистрация
               </Link>
             </nav>
           </div>
