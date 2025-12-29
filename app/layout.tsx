@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 export const metadata: Metadata = {
   title: 'Фолклорика - Национална платформа за български фолклор',
   description: 'Платформа за фолклорни сдружения, събития, концерти и фестивали в България',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({
