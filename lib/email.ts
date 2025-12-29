@@ -16,6 +16,7 @@ interface AssociationNotification {
   email: string;
   userName: string;
   userEmail: string;
+  adminUrl: string;
 }
 
 interface EventNotification {
@@ -25,6 +26,7 @@ interface EventNotification {
   userName: string;
   userEmail: string;
   associationName?: string;
+  adminUrl: string;
 }
 
 interface VerificationEmail {
@@ -170,7 +172,7 @@ export async function sendAssociationApprovalRequest(data: AssociationNotificati
         </div>
 
         <div style="margin: 30px 0; text-align: center;">
-          <a href="${process.env.NEXTAUTH_URL}/admin/associations" 
+          <a href="${data.adminUrl}/admin/associations" 
              style="background: #c53030; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
             Отвори Admin панел
           </a>
@@ -216,7 +218,7 @@ export async function sendEventApprovalRequest(data: EventNotification) {
         </div>
 
         <div style="margin: 30px 0; text-align: center;">
-          <a href="${process.env.NEXTAUTH_URL}/admin/events" 
+          <a href="${data.adminUrl}/admin/events" 
              style="background: #c53030; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
             Отвори Admin панел
           </a>

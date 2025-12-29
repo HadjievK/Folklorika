@@ -89,12 +89,17 @@ export async function POST(request: Request) {
     console.log('Association created:', association);
 
     // Изпращане на имейл до Жълтуша за одобрение
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const adminUrl = `${protocol}://${host}`;
+    
     await sendAssociationApprovalRequest({
       associationName: association.name,
       city: association.city,
       email: association.email || 'N/A',
       userName: session.user.name || 'Неизвестен',
       userEmail: session.user.email || 'N/A',
+      adminUrl,
     });
 
     return NextResponse.json(association, { status: 201 });

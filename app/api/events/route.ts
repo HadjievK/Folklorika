@@ -84,6 +84,10 @@ export async function POST(request: Request) {
     });
 
     // Изпращане на имейл до Жълтуша за одобрение
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const adminUrl = `${protocol}://${host}`;
+    
     await sendEventApprovalRequest({
       eventTitle: event.title,
       eventDate: format(new Date(event.date), 'dd MMM yyyy', { locale: bg }),
@@ -91,6 +95,7 @@ export async function POST(request: Request) {
       userName: session.user.name || 'Неизвестен',
       userEmail: session.user.email || 'N/A',
       associationName: event.association?.name,
+      adminUrl,
     });
 
     return NextResponse.json(event, { status: 201 });

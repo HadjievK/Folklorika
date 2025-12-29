@@ -8,9 +8,13 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get('token');
 
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
+
     if (!token) {
       return NextResponse.redirect(
-        new URL('/auth/signin?error=invalid-token', process.env.NEXTAUTH_URL!)
+        new URL('/auth/signin?error=invalid-token', baseUrl)
       );
     }
 
@@ -21,14 +25,14 @@ export async function GET(request: Request) {
 
     if (!user) {
       return NextResponse.redirect(
-        new URL('/auth/signin?error=invalid-token', process.env.NEXTAUTH_URL!)
+        new URL('/auth/signin?error=invalid-token', baseUrl)
       );
     }
 
     // Провери дали вече е верифициран
     if (user.emailVerified) {
       return NextResponse.redirect(
-        new URL('/auth/signin?verified=already', process.env.NEXTAUTH_URL!)
+        new URL('/auth/signin?verified=already', baseUrl)
       );
     }
 
@@ -43,12 +47,15 @@ export async function GET(request: Request) {
 
     // Пренасочи към login с успех съобщение
     return NextResponse.redirect(
-      new URL('/auth/signin?verified=success', process.env.NEXTAUTH_URL!)
+      new URL('/auth/signin?verified=success', baseUrl)
     );
   } catch (error) {
     console.error('Verification error:', error);
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
     return NextResponse.redirect(
-      new URL('/auth/signin?error=verification-failed', process.env.NEXTAUTH_URL!)
+      new URL('/auth/signin?error=verification-failed', baseUrl)
     );
   }
 }
