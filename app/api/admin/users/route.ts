@@ -3,11 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/admin';
 
 export async function GET() {
-  const isAdmin = await requireAdmin();
-
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-  }
+  await requireAdmin();
 
   try {
     const users = await prisma.user.findMany({
