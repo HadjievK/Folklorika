@@ -11,34 +11,29 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get associations where user is a member
-    const associations = await prisma.association.findMany({
+    // Get events created by the user
+    const events = await prisma.event.findMany({
       where: {
-        members: {
-          some: {
-            userId: session.user.id,
+        creatorId: session.user.id,
+      },
+      include: {
+        association: {
+          select: {
+            name: true,
+            slug: true,
           },
         },
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        city: true,
-        region: true,
-        description: true,
-        approved: true,
       },
       orderBy: {
         createdAt: 'desc',
       },
     });
 
-    return NextResponse.json(associations);
+    return NextResponse.json(events);
   } catch (error) {
-    console.error('Error fetching associations:', error);
+    console.error('Error fetching events:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch associations' },
+      { error: 'Failed to fetch events' },
       { status: 500 }
     );
   }

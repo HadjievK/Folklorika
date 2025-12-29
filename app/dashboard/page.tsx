@@ -9,6 +9,9 @@ export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // Само zhaltushaipriyateli@gmail.com е админ
+  const isAdmin = session?.user?.email === 'zhaltushaipriyateli@gmail.com';
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/auth/signin');
@@ -96,8 +99,8 @@ export default function DashboardPage() {
             </p>
           </Link>
 
-          {/* Admin Panel (Only for Admins) */}
-          {session.user.role === 'ADMIN' && (
+          {/* Admin Panel (Only for zhaltushaipriyateli@gmail.com) */}
+          {isAdmin && (
             <Link
               href="/admin"
               className="bg-red-50 border-2 border-red-200 rounded-lg shadow p-6 hover:shadow-lg transition group"
@@ -107,7 +110,7 @@ export default function DashboardPage() {
                 Админ панел
               </h3>
               <p className="text-red-700 text-sm">
-                Управление на платформата
+                Управление на платформата (само за Жълтуша)
               </p>
             </Link>
           )}
