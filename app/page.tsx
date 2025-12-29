@@ -63,7 +63,7 @@ export default async function Home() {
           {/* Centered Logo */}
           <div className="text-center">
             <Link href="/">
-              <h1 className="text-5xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg">
+              <h1 className="text-5xl font-bold cursor-pointer hover:opacity-90 transition text-white drop-shadow-lg" style={{ fontFamily: "'Ink Free', cursive" }}>
                 Фолклорика
               </h1>
             </Link>

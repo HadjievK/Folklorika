@@ -68,14 +68,23 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div 
+      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative"
+      style={{
+        backgroundImage: 'url(/pictures/shevica.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#fef2f2'
+      }}
+    >
+      <Link href="/" className="absolute top-6 left-6 text-gray-700 hover:text-red-600 transition">
+        ← Назад
+      </Link>
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <Link href="/" className="flex justify-center">
-            <span className="text-4xl">🇧🇬</span>
-          </Link>
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-            Регистрация
+        <div className="bg-white bg-opacity-90 rounded-lg p-6 shadow-md">
+          <h2 className="text-center text-3xl font-bold text-gray-900">
+            Регистрация във Фолклорика
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Или{' '}
@@ -171,12 +180,6 @@ export default function RegisterPage() {
             </div>
           </form>
         </div>
-
-        <p className="text-center text-xs text-gray-500">
-          <Link href="/" className="hover:text-red-600">
-            ← Обратно към началото
-          </Link>
-        </p>
       </div>
     </div>
   );
