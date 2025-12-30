@@ -249,72 +249,60 @@ export default async function Home() {
           </h2>
           
           {/* Sliding Partners Container */}
-          <div className="relative">
-            <div className="flex animate-slide-infinite gap-12 items-center">
-              {/* First set of partners */}
+          <div className="relative flex items-center justify-center">
+            <div className="flex animate-slide-infinite gap-16 items-center">
+              {/* Partners - displayed twice for seamless loop */}
               <a
                 href="https://www.facebook.com/profile.php?id=61575309253286"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+                className="flex-shrink-0 hover:opacity-100 transition"
               >
                 <img
                   src="/pictures/zhaltusha.jpg"
                   alt="Жълтуша и Приятели"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
                 />
-                <h3 className="text-xl font-bold text-gray-900 text-center">
-                  Сдружение "Жълтуша и Приятели"
-                </h3>
               </a>
 
               <a
                 href="https://www.facebook.com/pletenitza"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+                className="flex-shrink-0 hover:opacity-100 transition"
               >
                 <img
                   src="/pictures/Pletenica.jpg"
                   alt="Искърска плетеница"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
                 />
-                <h3 className="text-xl font-bold text-gray-900 text-center">
-                  Танцов клуб "Искърска плетеница"
-                </h3>
               </a>
 
-              {/* Duplicate set for seamless loop */}
+              {/* Duplicate for seamless loop */}
               <a
                 href="https://www.facebook.com/profile.php?id=61575309253286"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+                className="flex-shrink-0 hover:opacity-100 transition"
               >
                 <img
                   src="/pictures/zhaltusha.jpg"
                   alt="Жълтуша и Приятели"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
                 />
-                <h3 className="text-xl font-bold text-gray-900 text-center">
-                  Сдружение "Жълтуша и Приятели"
-                </h3>
               </a>
 
               <a
                 href="https://www.facebook.com/pletenitza"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+                className="flex-shrink-0 hover:opacity-100 transition"
               >
                 <img
                   src="/pictures/Pletenica.jpg"
                   alt="Искърска плетеница"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
                 />
-                <h3 className="text-xl font-bold text-gray-900 text-center">
-                  Танцов клуб "Искърска плетеница"
-                </h3>
               </a>
             </div>
           </div>
