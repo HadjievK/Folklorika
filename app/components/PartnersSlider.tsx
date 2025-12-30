@@ -17,13 +17,22 @@ const partners = [
 
 export default function PartnersSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % partners.length);
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentIndex((prev) => (prev + 1) % partners.length);
+      setTimeout(() => setIsAnimating(false), 700);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + partners.length) % partners.length);
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentIndex((prev) => (prev - 1 + partners.length) % partners.length);
+      setTimeout(() => setIsAnimating(false), 700);
+    }
   };
 
   // Get previous, current, and next indices
@@ -76,11 +85,11 @@ export default function PartnersSlider() {
       {/* Partners Display - 3 in a row with slide effect */}
       <div className="overflow-hidden py-8 px-16">
         <div 
-          className="flex items-center justify-center gap-8 transition-all duration-700 ease-in-out"
-          style={{ transform: `translateX(0)` }}
+          key={currentIndex}
+          className="flex items-center justify-center gap-8 transition-all duration-700 ease-in-out animate-fade-in"
         >
           {/* Left Partner - Smaller */}
-          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-700">
+          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-opacity duration-300">
             <a
               href={partners[getPrevIndex()].link}
               target="_blank"
@@ -91,7 +100,7 @@ export default function PartnersSlider() {
                 <img
                   src={partners[getPrevIndex()].image}
                   alt={partners[getPrevIndex()].name}
-                  className="w-32 h-32 object-contain mb-3 transition-all duration-700"
+                  className="w-32 h-32 object-contain mb-3"
                 />
                 <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
                   {partners[getPrevIndex()].name}
@@ -101,7 +110,7 @@ export default function PartnersSlider() {
           </div>
 
           {/* Center Partner - Larger (Featured) */}
-          <div className="flex-shrink-0 scale-110 transition-all duration-700">
+          <div className="flex-shrink-0 scale-110">
             <a
               href={partners[currentIndex].link}
               target="_blank"
@@ -112,7 +121,7 @@ export default function PartnersSlider() {
                 <img
                   src={partners[currentIndex].image}
                   alt={partners[currentIndex].name}
-                  className="w-48 h-48 object-contain mb-4 transition-all duration-700 shadow-lg"
+                  className="w-48 h-48 object-contain mb-4 shadow-lg"
                 />
                 <h3 className="text-xl font-bold text-gray-900 text-center max-w-[250px]">
                   {partners[currentIndex].name}
@@ -122,7 +131,7 @@ export default function PartnersSlider() {
           </div>
 
           {/* Right Partner - Smaller */}
-          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-700">
+          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-opacity duration-300">
             <a
               href={partners[getNextIndex()].link}
               target="_blank"
@@ -133,7 +142,7 @@ export default function PartnersSlider() {
                 <img
                   src={partners[getNextIndex()].image}
                   alt={partners[getNextIndex()].name}
-                  className="w-32 h-32 object-contain mb-3 transition-all duration-700"
+                  className="w-32 h-32 object-contain mb-3"
                 />
                 <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
                   {partners[getNextIndex()].name}
