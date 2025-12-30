@@ -201,6 +201,24 @@ vercel
 - [ ] Филтриране и търсене
 - [ ] Карта на събития
 
+## 🔧 TODO - Improvements & Features
+
+### 🔐 Authentication & Security
+- [ ] Add password visibility toggle (show/hide password field with eye icon)
+- [ ] Implement strong password validation:
+  - Minimum 6 characters
+  - At least one lowercase letter
+  - At least one uppercase letter
+  - At least one digit
+- [ ] Complete Google Login integration
+- [ ] Complete Facebook Login integration
+
+### 🎨 UI/UX Improvements
+- [ ] Enhance overall user interface design
+- [ ] Improve user experience flows
+- [ ] Add loading states and animations
+- [ ] Implement better error handling and user feedback
+
 ## 🤝 Принос
 
 Всички контрибуции са добре дошли! Моля, отворете issue или pull request.
