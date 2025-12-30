@@ -141,22 +141,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="bg-red-50 border-2 border-red-200 rounded-lg shadow p-6 hover:shadow-lg transition group"
-            >
-              <div className="text-4xl mb-4 group-hover:scale-110 transition">⚙️</div>
-              <h3 className="text-xl font-bold text-red-900 mb-2">
-                Админ панел
-              </h3>
-              <p className="text-red-700 text-sm">
-                Управление на платформата (само за Жълтуша)
-              </p>
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
