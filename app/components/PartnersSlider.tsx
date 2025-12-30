@@ -73,69 +73,74 @@ export default function PartnersSlider() {
         </svg>
       </button>
 
-      {/* Partners Display - 3 in a row */}
-      <div className="flex items-center justify-center gap-8 py-8 px-16">
-        {/* Left Partner - Smaller */}
-        <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-300">
-          <a
-            href={partners[getPrevIndex()].link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                src={partners[getPrevIndex()].image}
-                alt={partners[getPrevIndex()].name}
-                className="w-32 h-32 object-contain mb-3 transition-all duration-300"
-              />
-              <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
-                {partners[getPrevIndex()].name}
-              </h3>
-            </div>
-          </a>
-        </div>
+      {/* Partners Display - 3 in a row with slide effect */}
+      <div className="overflow-hidden py-8 px-16">
+        <div 
+          className="flex items-center justify-center gap-8 transition-all duration-700 ease-in-out"
+          style={{ transform: `translateX(0)` }}
+        >
+          {/* Left Partner - Smaller */}
+          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-700">
+            <a
+              href={partners[getPrevIndex()].link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className="flex flex-col items-center">
+                <img
+                  src={partners[getPrevIndex()].image}
+                  alt={partners[getPrevIndex()].name}
+                  className="w-32 h-32 object-contain mb-3 transition-all duration-700"
+                />
+                <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
+                  {partners[getPrevIndex()].name}
+                </h3>
+              </div>
+            </a>
+          </div>
 
-        {/* Center Partner - Larger (Featured) */}
-        <div className="flex-shrink-0 scale-110 transition-all duration-300">
-          <a
-            href={partners[currentIndex].link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                src={partners[currentIndex].image}
-                alt={partners[currentIndex].name}
-                className="w-48 h-48 object-contain mb-4 transition-all duration-300 shadow-lg"
-              />
-              <h3 className="text-xl font-bold text-gray-900 text-center max-w-[250px]">
-                {partners[currentIndex].name}
-              </h3>
-            </div>
-          </a>
-        </div>
+          {/* Center Partner - Larger (Featured) */}
+          <div className="flex-shrink-0 scale-110 transition-all duration-700">
+            <a
+              href={partners[currentIndex].link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className="flex flex-col items-center">
+                <img
+                  src={partners[currentIndex].image}
+                  alt={partners[currentIndex].name}
+                  className="w-48 h-48 object-contain mb-4 transition-all duration-700 shadow-lg"
+                />
+                <h3 className="text-xl font-bold text-gray-900 text-center max-w-[250px]">
+                  {partners[currentIndex].name}
+                </h3>
+              </div>
+            </a>
+          </div>
 
-        {/* Right Partner - Smaller */}
-        <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-300">
-          <a
-            href={partners[getNextIndex()].link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                src={partners[getNextIndex()].image}
-                alt={partners[getNextIndex()].name}
-                className="w-32 h-32 object-contain mb-3 transition-all duration-300"
-              />
-              <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
-                {partners[getNextIndex()].name}
-              </h3>
-            </div>
-          </a>
+          {/* Right Partner - Smaller */}
+          <div className="flex-shrink-0 opacity-60 hover:opacity-80 transition-all duration-700">
+            <a
+              href={partners[getNextIndex()].link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className="flex flex-col items-center">
+                <img
+                  src={partners[getNextIndex()].image}
+                  alt={partners[getNextIndex()].name}
+                  className="w-32 h-32 object-contain mb-3 transition-all duration-700"
+                />
+                <h3 className="text-sm font-semibold text-gray-700 text-center max-w-[150px]">
+                  {partners[getNextIndex()].name}
+                </h3>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
 
