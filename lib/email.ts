@@ -41,6 +41,12 @@ interface PasswordResetEmail {
   resetUrl: string;
 }
 
+interface PasswordChangedNotification {
+  name: string;
+  email: string;
+  baseUrl: string;
+}
+
 export async function sendPasswordResetEmail(data: PasswordResetEmail) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -237,5 +243,52 @@ export async function sendEventApprovalRequest(data: EventNotification) {
   } catch (error) {
     console.error('❌ Error sending email:', error);
     // Don't throw error - we don't want to block event creation if email fails
+  }
+}
+
+export async function sendPasswordChangedNotification(data: PasswordChangedNotification) {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: data.email,
+    subject: '🔒 Паролата ви е променена - Фолклорика',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #c53030;">Паролата ви е променена</h2>
+        
+        <p>Здравейте, ${data.name}!</p>
+        
+        <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <p style="margin: 0;">
+            Паролата за вашия акаунт в <strong>Фолклорика</strong> беше успешно променена.
+          </p>
+        </div>
+
+        <div style="background: #fff5f5; border-l-4 border-red-500; padding: 15px; margin: 20px 0;">
+          <p style="margin: 0; color: #c53030;">
+            <strong>⚠️ Важно:</strong> Ако не сте извършили тази промяна, моля свържете се с нас незабавно на 
+            <a href="mailto:zhaltushaipriyateli@gmail.com" style="color: #c53030;">zhaltushaipriyateli@gmail.com</a>
+          </p>
+        </div>
+
+        <div style="margin: 30px 0; text-align: center;">
+          <a href="${data.baseUrl}/auth/signin" 
+             style="background: #c53030; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+            Вход в акаунта
+          </a>
+        </div>
+
+        <p style="color: #718096; font-size: 14px; margin-top: 30px;">
+          Фолклорика - Платформа за български фолклор
+        </p>
+      </div>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('✅ Password change notification sent to:', data.email);
+  } catch (error) {
+    console.error('❌ Error sending password change notification:', error);
+    throw error;
   }
 }
