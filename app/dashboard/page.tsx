@@ -96,6 +96,20 @@ export default function DashboardPage() {
             </p>
           </Link>
 
+          {/* My Profile Card */}
+          <Link
+            href="/dashboard/profile"
+            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+          >
+            <div className="text-4xl mb-4 group-hover:scale-110 transition">👤</div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              Моят профил
+            </h3>
+            <p className="text-gray-600 text-sm">
+              Виж информацията за твоя профил и активност
+            </p>
+          </Link>
+
           {/* Admin Panel (Only for zhaltushaipriyateli@gmail.com) */}
           {isAdmin && (
             <Link
