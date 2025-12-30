@@ -34,115 +34,113 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Добре дошъл, {session.user.name || session.user.email}!
-              </h1>
-            </div>
-            <Link href="/" className="text-red-600 hover:text-red-700">
-              ← Към началото
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Video Background */}
+      <div className="fixed inset-0 w-full h-full z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        >
+          <source src="/videos/dashboard-background.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Create Event Card */}
-          <Link
-            href="/dashboard/events/create"
-            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
-            style={{
-              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
-            <div className="relative z-10">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition">🎭</div>
-              <h3 className="text-xl font-bold text-white mb-2">
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Welcome Section */}
+        <div className="container mx-auto px-4 py-8 md:py-12 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+            Добре дошъл, {session.user.name || session.user.email}!
+          </h1>
+          <Link href="/" className="inline-block text-white hover:text-gray-200 transition underline">
+            ← Към началото
+          </Link>
+        </div>
+
+        {/* Dashboard Cards */}
+        <div className="container mx-auto px-4 pb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Create Event Card */}
+            <Link
+              href="/dashboard/events/create"
+              className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 hover:bg-opacity-100 hover:shadow-xl transition group"
+            >
+              <div className="text-5xl mb-4 group-hover:scale-110 transition">🎭</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Създай събитие
               </h3>
-              <p className="text-gray-100 text-sm">
+              <p className="text-gray-600">
                 Добави нов концерт, фестивал или работилница
               </p>
-            </div>
-          </Link>
+            </Link>
 
-          {/* My Events Card */}
-          <Link
-            href="/dashboard/events"
-            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
-            style={{
-              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
-            <div className="relative z-10">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition">📅</div>
-              <h3 className="text-xl font-bold text-white mb-2">
+            {/* My Events Card */}
+            <Link
+              href="/dashboard/events"
+              className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 hover:bg-opacity-100 hover:shadow-xl transition group"
+            >
+              <div className="text-5xl mb-4 group-hover:scale-110 transition">📅</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Моите събития
               </h3>
-              <p className="text-gray-100 text-sm">
+              <p className="text-gray-600">
                 Управлявай създадените от теб събития
               </p>
-            </div>
-          </Link>
+            </Link>
 
-          {/* Register Association Card */}
-          <Link
-            href="/dashboard/associations/create"
-            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
-            style={{
-              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
-            <div className="relative z-10">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition">🎪</div>
-              <h3 className="text-xl font-bold text-white mb-2">
+            {/* Register Association Card */}
+            <Link
+              href="/dashboard/associations/create"
+              className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 hover:bg-opacity-100 hover:shadow-xl transition group"
+            >
+              <div className="text-5xl mb-4 group-hover:scale-110 transition">🎪</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Регистрирай сдружение
               </h3>
-              <p className="text-gray-100 text-sm">
+              <p className="text-gray-600">
                 Създай профил на твоето фолклорно сдружение
               </p>
-            </div>
-          </Link>
+            </Link>
 
-          {/* My Profile Card */}
-          <Link
-            href="/dashboard/profile"
-            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
-            style={{
-              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
-            <div className="relative z-10">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition">👤</div>
-              <h3 className="text-xl font-bold text-white mb-2">
+            {/* My Profile Card */}
+            <Link
+              href="/dashboard/profile"
+              className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 hover:bg-opacity-100 hover:shadow-xl transition group"
+            >
+              <div className="text-5xl mb-4 group-hover:scale-110 transition">👤</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Моят профил
               </h3>
-              <p className="text-gray-100 text-sm">
+              <p className="text-gray-600">
                 Виж информацията за твоя профил и активност
               </p>
-            </div>
-          </Link>
+            </Link>
 
-          {/* Admin Panel (Only for zhaltushaipriyateli@gmail.com) */}
+            {/* Admin Panel (Only for zhaltushaipriyateli@gmail.com) */}
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="bg-red-600 bg-opacity-90 rounded-lg shadow-lg p-8 hover:bg-opacity-100 hover:shadow-xl transition group"
+              >
+                <div className="text-5xl mb-4 group-hover:scale-110 transition">⚙️</div>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Админ панел
+                </h3>
+                <p className="text-red-100">
+                  Управление на платформата (само за Жълтуша)
+                </p>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
           {isAdmin && (
             <Link
               href="/admin"
