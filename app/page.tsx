@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { format } from 'date-fns';
 import { bg } from 'date-fns/locale';
 import VideoBackground from './components/VideoBackground';
+import PartnersSlider from './components/PartnersSlider';
 
 async function getUpcomingEvents() {
   return await prisma.event.findMany({
@@ -242,70 +243,12 @@ export default async function Home() {
       </section>
 
       {/* Partners Section */}
-      <section className="py-12 bg-gray-100 overflow-hidden">
+      <section className="py-12 bg-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
             Официални Партньори
           </h2>
-          
-          {/* Sliding Partners Container */}
-          <div className="relative flex items-center justify-center">
-            <div className="flex animate-slide-infinite gap-16 items-center">
-              {/* Partners - displayed twice for seamless loop */}
-              <a
-                href="https://www.facebook.com/profile.php?id=61575309253286"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 hover:opacity-100 transition"
-              >
-                <img
-                  src="/pictures/zhaltusha.jpg"
-                  alt="Жълтуша и Приятели"
-                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
-                />
-              </a>
-
-              <a
-                href="https://www.facebook.com/pletenitza"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 hover:opacity-100 transition"
-              >
-                <img
-                  src="/pictures/Pletenica.jpg"
-                  alt="Искърска плетеница"
-                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
-                />
-              </a>
-
-              {/* Duplicate for seamless loop */}
-              <a
-                href="https://www.facebook.com/profile.php?id=61575309253286"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 hover:opacity-100 transition"
-              >
-                <img
-                  src="/pictures/zhaltusha.jpg"
-                  alt="Жълтуша и Приятели"
-                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
-                />
-              </a>
-
-              <a
-                href="https://www.facebook.com/pletenitza"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 hover:opacity-100 transition"
-              >
-                <img
-                  src="/pictures/Pletenica.jpg"
-                  alt="Искърска плетеница"
-                  className="h-32 w-auto object-contain opacity-80 hover:opacity-100 transition"
-                />
-              </a>
-            </div>
-          </div>
+          <PartnersSlider />
         </div>
       </section>
 
