@@ -241,6 +241,86 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="py-12 bg-gray-100 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Официални Партньори
+          </h2>
+          
+          {/* Sliding Partners Container */}
+          <div className="relative">
+            <div className="flex animate-slide-infinite gap-12 items-center">
+              {/* First set of partners */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61575309253286"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+              >
+                <img
+                  src="/pictures/zhaltusha.jpg"
+                  alt="Жълтуша и Приятели"
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-bold text-gray-900 text-center">
+                  Сдружение "Жълтуша и Приятели"
+                </h3>
+              </a>
+
+              <a
+                href="https://www.facebook.com/pletenitza"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+              >
+                <img
+                  src="/pictures/Pletenica.jpg"
+                  alt="Искърска плетеница"
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-bold text-gray-900 text-center">
+                  Танцов клуб "Искърска плетеница"
+                </h3>
+              </a>
+
+              {/* Duplicate set for seamless loop */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61575309253286"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+              >
+                <img
+                  src="/pictures/zhaltusha.jpg"
+                  alt="Жълтуша и Приятели"
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-bold text-gray-900 text-center">
+                  Сдружение "Жълтуша и Приятели"
+                </h3>
+              </a>
+
+              <a
+                href="https://www.facebook.com/pletenitza"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition w-80"
+              >
+                <img
+                  src="/pictures/Pletenica.jpg"
+                  alt="Искърска плетеница"
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-bold text-gray-900 text-center">
+                  Танцов клуб "Искърска плетеница"
+                </h3>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto px-4 text-center">

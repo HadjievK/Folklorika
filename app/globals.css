@@ -23,3 +23,20 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes slide-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide-infinite {
+  animation: slide-infinite 20s linear infinite;
+}
+
+.animate-slide-infinite:hover {
+  animation-play-state: paused;
+}
