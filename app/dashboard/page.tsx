@@ -57,57 +57,89 @@ export default function DashboardPage() {
           {/* Create Event Card */}
           <Link
             href="/dashboard/events/create"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
+            style={{
+              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div className="text-4xl mb-4 group-hover:scale-110 transition">🎭</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Създай събитие
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Добави нов концерт, фестивал или работилница
-            </p>
+            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
+            <div className="relative z-10">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition">🎭</div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Създай събитие
+              </h3>
+              <p className="text-gray-100 text-sm">
+                Добави нов концерт, фестивал или работилница
+              </p>
+            </div>
           </Link>
 
           {/* My Events Card */}
           <Link
             href="/dashboard/events"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
+            style={{
+              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div className="text-4xl mb-4 group-hover:scale-110 transition">📅</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Моите събития
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Управлявай създадените от теб събития
-            </p>
+            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
+            <div className="relative z-10">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition">📅</div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Моите събития
+              </h3>
+              <p className="text-gray-100 text-sm">
+                Управлявай създадените от теб събития
+              </p>
+            </div>
           </Link>
 
           {/* Register Association Card */}
           <Link
             href="/dashboard/associations/create"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
+            style={{
+              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div className="text-4xl mb-4 group-hover:scale-110 transition">🎪</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Регистрирай сдружение
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Създай профил на твоето фолклорно сдружение
-            </p>
+            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
+            <div className="relative z-10">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition">🎪</div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Регистрирай сдружение
+              </h3>
+              <p className="text-gray-100 text-sm">
+                Създай профил на твоето фолклорно сдружение
+              </p>
+            </div>
           </Link>
 
           {/* My Profile Card */}
           <Link
             href="/dashboard/profile"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition group"
+            className="relative rounded-lg shadow overflow-hidden p-6 hover:shadow-lg transition group h-48 flex flex-col justify-end"
+            style={{
+              backgroundImage: 'url(/pictures/shevica-blackandwhite.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div className="text-4xl mb-4 group-hover:scale-110 transition">👤</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Моят профил
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Виж информацията за твоя профил и активност
-            </p>
+            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition"></div>
+            <div className="relative z-10">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition">👤</div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Моят профил
+              </h3>
+              <p className="text-gray-100 text-sm">
+                Виж информацията за твоя профил и активност
+              </p>
+            </div>
           </Link>
 
           {/* Admin Panel (Only for zhaltushaipriyateli@gmail.com) */}
