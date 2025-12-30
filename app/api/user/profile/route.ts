@@ -28,8 +28,8 @@ export async function GET() {
         createdAt: true,
         _count: {
           select: {
-            events: true,
-            associationMembers: {
+            createdEvents: true,
+            associations: {
               where: {
                 role: 'OWNER',
               },
@@ -55,8 +55,8 @@ export async function GET() {
       role: user.role,
       createdAt: user.createdAt.toISOString(),
       _count: {
-        events: user._count.events,
-        associations: user._count.associationMembers,
+        events: user._count.createdEvents,
+        associations: user._count.associations,
       },
     };
 
