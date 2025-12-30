@@ -95,7 +95,59 @@ export default function ProfilePage() {
 
       if (response.ok) {
         setPasswordSuccess('Паролата е сменена успешно! Изпратен е email за потвърждение.');
-        setPasswordForm({4xl mx-auto space-y-6">
+        setPasswordForm({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        });
+      } else {
+        setPasswordError(data.error || 'Грешка при смяна на паролата');
+      }
+    } catch (error) {
+      setPasswordError('Грешка при смяна на паролата');
+    } finally {
+      setChangingPassword(false);
+    }
+  }
+
+  if (status === 'loading' || loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Зареждане на профил...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!session || !profile) {
+    return null;
+  }
+
+  const createdDate = new Date(profile.createdAt).toLocaleDateString('bg-BG', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-900">Моят профил</h1>
+            <Link href="/dashboard" className="text-red-600 hover:text-red-700">
+              ← Назад към Dashboard
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto space-y-6">
           {/* Profile Card */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             {/* Profile Header */}
@@ -148,6 +200,123 @@ export default function ProfilePage() {
                       {profile.role === 'ADMIN' ? '👑 Администратор' : '👤 Потребител'}
                     </p>
                   </div>
+
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                      Член от
+                    </label>
+                    <p className="text-gray-900 font-medium">{createdDate}</p>
+                  </div>
+                </div>
+
+                {/* Change Password */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                    <span className="mr-2">🔒</span>
+                    Смяна на парола
+                  </h3>
+
+                  <form onSubmit={handlePasswordChange} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Текуща парола
+                      </label>
+                      <input
+                        type="password"
+                        value={passwordForm.currentPassword}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        placeholder="Въведи текущата парола"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Нова парола
+                      </label>
+                      <input
+                        type="password"
+                        value={passwordForm.newPassword}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        placeholder="Поне 6 символа"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Потвърди нова парола
+                      </label>
+                      <input
+                        type="password"
+                        value={passwordForm.confirmPassword}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        placeholder="Въведи отново новата парола"
+                      />
+                    </div>
+
+                    {passwordError && (
+                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                        {passwordError}
+                      </div>
+                    )}
+
+                    {passwordSuccess && (
+                      <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
+                        {passwordSuccess}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={changingPassword}
+                      className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {changingPassword ? 'Смяна...' : 'Смени паролата'}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Statistics Cards */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-8 text-center">
+              <div className="text-5xl mb-4">🎭</div>
+              <div className="text-4xl font-bold text-blue-900 mb-2">
+                {profile._count.events}
+              </div>
+              <p className="text-blue-700 font-medium text-lg">Създадени събития</p>
+              <Link
+                href="/dashboard/events"
+                className="inline-block mt-4 text-blue-600 hover:text-blue-800 underline text-sm"
+              >
+                Виж всички →
+              </Link>
+            </div>
+
+            <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-8 text-center">
+              <div className="text-5xl mb-4">🎪</div>
+              <div className="text-4xl font-bold text-purple-900 mb-2">
+                {profile._count.associations}
+              </div>
+              <p className="text-purple-700 font-medium text-lg">Сдружения (като собственик)</p>
+              <Link
+                href="/dashboard/associations/create"
+                className="inline-block mt-4 text-purple-600 hover:text-purple-800 underline text-sm"
+              >
+                Регистрирай ново →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <label className="block text-sm font-medium text-gray-600 mb-1">
